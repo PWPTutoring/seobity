@@ -9,14 +9,20 @@
 
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="comment_text" placeholder="댓글을 입력하세요" required>
+        <input type="text" name="content" placeholder="댓글을 입력하세요" required>
         <button type="submit">작성</button>
     </form>
 
-    {% if comment %}
-    <div>
-        <p>댓글: {{ comment }}</p>
+    <hr>
+
+    <h2>모든 댓글 ({{ comments|length }}개)</h2>
+    {% for comment in comments %}
+    <div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0;">
+        <p>{{ comment.content }}</p>
+        <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
     </div>
-    {% endif %}
+    {% empty %}
+    <p>댓글이 없습니다.</p>
+    {% endfor %}
 </body>
-</html> 
+</html>
