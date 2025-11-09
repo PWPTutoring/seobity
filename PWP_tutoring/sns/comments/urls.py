@@ -5,4 +5,5 @@ app_name = 'comments'
 
 urlpatterns = [
     path('', views.comment_view, name='comment'),
+    path('signup/',views.signup_view, name='signup'),
 ]

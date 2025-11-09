@@ -1,28 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>댓글 남기기</title>
+    <link rel="stylesheet" href="{% static 'comments/style.css' %}">
 </head>
 <body>
     <h1>댓글 남기기</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="content" placeholder="댓글을 입력하세요" required>
-        <button type="submit">작성</button>
-    </form>
+    <div class="comment-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">작성</button>
+        </form>
+    </div>
 
     <hr>
 
     <h2>모든 댓글 ({{ comments|length }}개)</h2>
     {% for comment in comments %}
-    <div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0;">
+    <div class="comment-item">
         <p>{{ comment.content }}</p>
         <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
     </div>
     {% empty %}
     <p>댓글이 없습니다.</p>
     {% endfor %}
+
+    <script src="{% static 'comments/script.js' %}"></script>
 </body>
 </html>
